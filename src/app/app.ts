@@ -8,16 +8,39 @@ import {
 } from '@helpers/responseHandler';
 import { ZodError } from 'zod';
 import cors from 'cors';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
 
 const app: Application = express();
 
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: '@edtech/api',
+      version: '1.0.0',
+      description: 'API Documentation',
+    },
+    servers: [
+      {
+        url: `http://localhost:${process.env.PORT!}`,
+        description: 'Development server',
+      },
+    ],
+  },
+  apis: [`${process.cwd()}/docs/*.yaml`],
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
 app.use(json());
+app.use(cors());
 app.use(
   urlencoded({
     extended: true,
   }),
 );
-app.use(cors());
 
 app.get('/', (_req: Request, res: Response) => {
   res.json({ message: 'Server is live!' });
