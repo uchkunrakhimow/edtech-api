@@ -10,6 +10,7 @@ import { ZodError } from 'zod';
 import cors from 'cors';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
+import path from 'node:path';
 
 const app: Application = express();
 
@@ -42,12 +43,19 @@ app.use(
   }),
 );
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(process.cwd(), '/client/dist')));
+
+  app.get('*', (_req: Request, res: Response) => {
+    res.sendFile(path.join(process.cwd(), '/client/dist/index.html'));
+  });
+}
+
 app.get('/', (_req: Request, res: Response) => {
   res.json({ message: 'Server is live!' });
 });
 
 app.use(routes);
-
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof ZodError) {
     sendBadRequestResponse(res, err.flatten());
