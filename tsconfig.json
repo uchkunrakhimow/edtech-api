@@ -8,8 +8,14 @@
       "@middlewares/*": ["src/app/middlewares/*"],
       "@helpers/*": ["src/app/helpers/*"],
       "@modules/*": ["src/app/modules/*"],
-      "@userModul/*": ["src/app/modules/user/*"],
+      "@userModule/*": ["src/app/modules/user/*"],
+      "@authModule/*": ["src/app/modules/auth/*"],
+      "@courseModule/*": ["src/app/modules/course/*"],
+      "@testModule/*": ["src/app/modules/test/*"],
+      "@testResultModule/*": ["src/app/modules/testResult/*"],
+      "@enrollmentModule/*": ["src/app/modules/enrollment/*"],
       "@packagejson": ["package.json"]
     }
-  }
+  },
+  "exclude": ["client", "node_modules"]
 }
