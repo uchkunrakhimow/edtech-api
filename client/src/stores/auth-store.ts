@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { loginRequest } from '@/api/requests';
+import { loginRequest } from '@/services/auth-requests';
 
 interface User {
   id: string;
