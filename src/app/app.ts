@@ -7,6 +7,7 @@ import {
   sendNotFoundResponse,
 } from '@helpers/responseHandler';
 import { ZodError } from 'zod';
+import cors from 'cors';
 
 const app: Application = express();
 
@@ -16,6 +17,7 @@ app.use(
     extended: true,
   }),
 );
+app.use(cors());
 
 app.get('/', (_req: Request, res: Response) => {
   res.json({ message: 'Server is live!' });
