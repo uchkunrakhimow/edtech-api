@@ -23,12 +23,12 @@ import {
 const router = Router();
 
 /**
- * @route POST /users
+ * @route POST /user
  * @desc Create user
  * @body {name, email, phoneNumber, password, role}
  * @access Public
  */
-router.post('/users', async (req, res, next) => {
+router.post('/user', async (req, res, next) => {
   const body = createUserValidate.parse(req.body);
   try {
     const existsUser = await getExistsUser(body.email, body.phoneNumber);
@@ -53,12 +53,12 @@ router.post('/users', async (req, res, next) => {
 });
 
 /**
- * @route GET /users
+ * @route GET /user
  * @desc Get all users
  * @query {skip, take}
  * @access Public
  */
-router.get('/users', async (req, res, next) => {
+router.get('/user', async (req, res, next) => {
   const query = getAllUsersValidate.parse(req.query);
   try {
     const result = await getAllUsers({
@@ -72,12 +72,12 @@ router.get('/users', async (req, res, next) => {
 });
 
 /**
- * @route GET /users/:id
+ * @route GET /user/:id
  * @desc Get user by id
  * @params {id}
  * @access Public
  */
-router.get('/users/:id', async (req, res, next) => {
+router.get('/user/:id', async (req, res, next) => {
   const param = userIdValidate.parse(req.params);
   try {
     const user = await getUserById(param.id);
@@ -95,12 +95,12 @@ router.get('/users/:id', async (req, res, next) => {
 });
 
 /**
- * @route PUT /users/:id
+ * @route PUT /user/:id
  * @desc Update user by id
  * @params {id}
  * @access Public
  */
-router.put('/users/:id', async (req, res, next) => {
+router.put('/user/:id', async (req, res, next) => {
   const param = userIdValidate.parse(req.params);
   const body = updateUserValidate.parse(req.body);
   try {
@@ -133,12 +133,12 @@ router.put('/users/:id', async (req, res, next) => {
 });
 
 /**
- * @route DELETE /users/:id
+ * @route DELETE /user/:id
  * @desc Delete user by id
  * @params {id}
  * @access Public
  */
-router.delete('/users/:id', async (req, res, next) => {
+router.delete('/user/:id', async (req, res, next) => {
   const param = userIdValidate.parse(req.params);
   try {
     const user = await getUserById(param.id);
